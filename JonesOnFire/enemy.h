@@ -11,7 +11,7 @@ public:
 	float dx, dy, speed;
 	int score;
 	bool onGround;
-
+	bool hurt = false;
 	void Update(float time);
 	float getplayercoordinateX() { return x; }
 	float getplayercoordinateY() { return y; }
@@ -21,9 +21,10 @@ public:
 	std::vector<Object> obj;
 	int health;
 	bool life;
+	float currentFrame;
 private:
+	float hurt_time = 0;
 	float x, y;
-	float currentFrame, currentFrameJump;
 	float w = 75.f;
 	float h = 152.f;
 	sf::FloatRect rect;

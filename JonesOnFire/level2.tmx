@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="100" height="15" tilewidth="50" tileheight="50" nextobjectid="50">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="100" height="15" tilewidth="50" tileheight="50" nextobjectid="88">
  <tileset firstgid="1" name="level2" tilewidth="50" tileheight="50" tilecount="1530" columns="102">
   <image source="images/level2.png" width="5100" height="750"/>
  </tileset>
@@ -1508,7 +1508,7 @@
   </data>
  </layer>
  <objectgroup name="solid">
-  <object id="1" name="solid" x="2" y="648" width="696" height="102"/>
+  <object id="1" name="solid" x="2" y="654" width="696" height="96"/>
   <object id="2" name="solid" x="301" y="600" width="397" height="48"/>
   <object id="3" name="solid" x="400" y="550" width="198" height="50"/>
   <object id="4" name="solid" x="500" y="500" width="98" height="49"/>
@@ -1519,11 +1519,10 @@
   <object id="9" name="solid" x="1600" y="601" width="299" height="49"/>
   <object id="10" name="solid" x="1800" y="552" width="98" height="50"/>
   <object id="11" name="solid" x="1350" y="350" width="302" height="50"/>
-  <object id="12" name="solid" x="2000" y="350" width="248" height="100"/>
   <object id="13" name="solid" x="1898" y="652" width="1304" height="96"/>
   <object id="14" name="solid" x="2400" y="602" width="602" height="52"/>
   <object id="15" name="solid" x="2800" y="550" width="200" height="50"/>
-  <object id="16" name="solid" x="3100" y="302" width="302" height="98"/>
+  <object id="16" name="solid" x="3096.67" y="300.333" width="302" height="98"/>
   <object id="17" name="solid" x="3204" y="700" width="1795" height="50"/>
   <object id="18" name="solid" x="3950" y="351" width="200" height="349"/>
   <object id="19" name="solid" x="4152" y="400" width="96" height="296"/>
@@ -1535,17 +1534,51 @@
   <object id="28" name="solid" x="2" y="-4" width="2" height="650"/>
   <object id="29" name="solid" x="8" y="-2" width="4992" height="4"/>
   <object id="30" name="solid" x="4994" y="2" width="4" height="698"/>
- </objectgroup>
- <objectgroup name="hero">
-  <object id="25" name="hero" x="50" y="498" width="76" height="150"/>
+  <object id="50" name="star" x="306.335" y="102.165" width="25.33" height="25.67"/>
+  <object id="51" name="star" x="343.335" y="380.165" width="25.33" height="25.67"/>
+  <object id="52" name="star" x="212.335" y="343.165" width="25.33" height="25.67"/>
+  <object id="53" name="star" x="468.335" y="311.165" width="25.33" height="25.67"/>
+  <object id="55" name="star" x="251.335" y="262.165" width="25.33" height="25.67"/>
+  <object id="56" name="star" x="223.335" y="467.165" width="25.33" height="25.67"/>
+  <object id="57" name="star" x="534.335" y="174.165" width="25.33" height="25.67"/>
+  <object id="58" name="star" x="1194.34" y="443.165" width="25.33" height="25.67"/>
+  <object id="59" name="star" x="1022.34" y="389.165" width="25.33" height="25.67"/>
+  <object id="60" name="star" x="1392.34" y="416.165" width="25.33" height="25.67"/>
+  <object id="61" name="star" x="1513.34" y="424.165" width="25.33" height="25.67"/>
+  <object id="62" name="star" x="1570.34" y="427.165" width="25.33" height="25.67"/>
+  <object id="63" name="star" x="1276.34" y="313.165" width="25.33" height="25.67"/>
+  <object id="64" name="star" x="1918.34" y="318.165" width="25.33" height="25.67"/>
+  <object id="65" name="star" x="1758.34" y="260.165" width="25.33" height="25.67"/>
+  <object id="66" name="star" x="1710.34" y="359.165" width="25.33" height="25.67"/>
+  <object id="67" name="star" x="1789.34" y="352.165" width="25.33" height="25.67"/>
+  <object id="68" name="star" x="1874.34" y="345.165" width="25.33" height="25.67"/>
+  <object id="69" name="star" x="1673.34" y="429.165" width="25.33" height="25.67"/>
+  <object id="70" name="star" x="2222.34" y="214.165" width="25.33" height="25.67"/>
+  <object id="71" name="star" x="2645.34" y="280.165" width="25.33" height="25.67"/>
+  <object id="72" name="star" x="2576.34" y="356.165" width="25.33" height="25.67"/>
+  <object id="73" name="star" x="2470.34" y="279.165" width="25.33" height="25.67"/>
+  <object id="74" name="star" x="2450.34" y="409.165" width="25.33" height="25.67"/>
+  <object id="75" name="star" x="2383.34" y="439.165" width="25.33" height="25.67"/>
+  <object id="76" name="star" x="2546.34" y="439.165" width="25.33" height="25.67"/>
+  <object id="77" name="star" x="2830.34" y="392.165" width="25.33" height="25.67"/>
+  <object id="78" name="star" x="2875.34" y="309.165" width="25.33" height="25.67"/>
+  <object id="79" name="star" x="2741.34" y="372.165" width="25.33" height="25.67"/>
+  <object id="80" name="star" x="2961.34" y="384.165" width="25.33" height="25.67"/>
+  <object id="81" name="star" x="2979.34" y="302.165" width="25.33" height="25.67"/>
+  <object id="82" name="star" x="3300.01" y="441.165" width="25.33" height="25.67"/>
+  <object id="83" name="star" x="2859.67" y="184.498" width="25.33" height="25.67"/>
+  <object id="84" name="star" x="3519.01" y="610.498" width="25.33" height="25.67"/>
+  <object id="85" name="star" x="3791.34" y="280.165" width="25.33" height="25.67"/>
+  <object id="87" name="solid" x="1999" y="348" width="248" height="100"/>
  </objectgroup>
  <objectgroup name="enemy">
-  <object id="32" name="enemy" x="856" y="546" width="92" height="152"/>
-  <object id="33" name="enemy" x="1064" y="42" width="92" height="152"/>
-  <object id="34" name="enemy" x="1514" y="194" width="92" height="152"/>
-  <object id="35" name="enemy" x="2122" y="498" width="92" height="152"/>
-  <object id="36" name="enemy" x="3018" y="496" width="92" height="152"/>
-  <object id="37" name="enemy" x="4682" y="196" width="92" height="152"/>
+  <object id="32" name="enemy" x="856" y="546" width="90" height="152"/>
+  <object id="33" name="enemy" x="1064" y="42" width="90" height="152"/>
+  <object id="34" name="enemy" x="1514" y="194" width="90" height="152"/>
+  <object id="35" name="enemy" x="2122" y="498" width="90" height="152"/>
+  <object id="36" name="enemy" x="3018" y="496" width="90" height="152"/>
+  <object id="37" name="enemy" x="4682" y="196" width="90" height="152"/>
+  <object id="25" name="hero" x="8" y="250" width="75" height="152"/>
  </objectgroup>
  <objectgroup name="bonus">
   <object id="38" name="bonus" x="660" y="276" width="69" height="69"/>

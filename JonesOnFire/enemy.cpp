@@ -39,7 +39,7 @@ void Enemy::setTextureRectByState(float time)
 		sprite.setTextureRect(IntRect(w * int(currentFrame), h, w, h));
 		break;
 	case (DOWN):
-		dy = speed * 4;
+		dy = speed * 5;
 		break;
 	}
 
@@ -48,26 +48,47 @@ void Enemy::setTextureRectByState(float time)
 
 void Enemy::Update(float time)
 {
-	if (health <= 0)
+	if (life)
 	{
-		life = false;
+		setTextureRectByState(time);
+
+		if (!onGround)
+		{
+			dy += time * 0.0015f;
+		}
+		x += dx * time;
+		Collision(dx, 0);
+		y += dy * time;
+		Collision(0, dy);
+		sprite.setPosition(x, y);
+		dy += 0.0015 * time;
+		dx = 0;
 	}
-
-	setTextureRectByState(time);
-
-	if (!onGround)
+	else
 	{
-		dy += time * 0.0015f;
+		if (currentFrame < 5)
+		{
+			currentFrame += 0.01 * time;
+			sprite.setTextureRect(IntRect(152 * (int)currentFrame, h * 3 , 152, 150));
+		}
+		else
+		{
+			sprite.setTextureRect(IntRect(152 * 4, h * 3, 152, 150));
+		}
+		sprite.setPosition(x, y);
 	}
-	x += dx * time;
-	Collision(dx, 0);
-	y += dy * time;
-	Collision(0, dy);
-	sprite.setPosition(x, y);
-	dy += 0.0015 * time;
-	dx = 0;
-
-	sprite.setPosition(x, y);
+	if (hurt)
+	{
+		if (hurt_time < 3)
+		{
+			hurt_time += time * 0.0015;
+		}
+		else
+		{
+			hurt = false;
+			hurt_time = 0;
+		}
+	}
 }
 
 FloatRect Enemy::GetRect()
@@ -81,7 +102,7 @@ void Enemy::Collision(float Dx, float Dy)//ф-ция взаимодействия с картой
 	for (int i = 0; i < obj.size(); i++)//проходимся по объектам
 		if (GetRect().intersects(obj[i].rect))//проверяем пересечение игрока с объектом
 		{
-			if (obj[i].name == "solid")//если встретили препятствие
+			if ((obj[i].name == "solid") || (obj[i].name == "solid1"))//если встретили препятствие
 			{
 				if (Dy > 0) //если мы шли вниз,
 				{

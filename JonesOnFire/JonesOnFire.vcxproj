@@ -192,6 +192,7 @@ copy "C:\sdk\SFML-2.4.0\bin\openal32.dll" "$(OutputPath)openal32.dll"</Command>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="enemy.h" />
+    <ClInclude Include="Game.h" />
     <ClInclude Include="InitialData.h" />
     <ClInclude Include="level.h" />
     <ClInclude Include="Menu.h" />
