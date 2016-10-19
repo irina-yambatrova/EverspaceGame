@@ -25,5 +25,7 @@ struct ObjectsOfTheWorld
 	float starCurrentFrame = 0;
 	size_t level = 1;
 	bool newLevel = false;
+	int score = 0;
+	int health = 100;
 };
 

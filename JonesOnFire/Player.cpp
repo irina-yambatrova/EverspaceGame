@@ -5,7 +5,6 @@ using namespace sf;
 
 Player::Player(Texture & texture, Level & lvl)
 	: speed(0.2f)
-	, score(0)
 	, currentFrame(0)
 	, currentFrameJump(0)
 	, state(STAY)
@@ -13,7 +12,6 @@ Player::Player(Texture & texture, Level & lvl)
 	, onGround(true)
 	, readyToShoot(false)
 	, levelUp(false)
-	, health(100)
 {
 	Object p = lvl.GetObject("hero");
 	x = (float)p.rect.left;
@@ -112,24 +110,19 @@ void Player::JumpAnimation(float time)
 			sprite.setTextureRect(IntRect(86 * int(currentFrameJump), 4 * h, 86, h));
 		}
 	}
-	
 }
 
-bool Player::EndGame()
+
+void Player::Update(float time, ObjectsOfTheWorld & world)
 {
-	if (health <= 0)
+	if ((world.health <= 20) && (world.score >= 100))
 	{
-		return false;
+		world.health = 100;
+		world.score -= 100;
 	}
-	
-}
-
-
-void Player::Update(float time)
-{
-
-	if (health <= 0)
+	if (world.health <= 0)
 	{
+		world.health = 0;
 		if (endFrame < 4)
 		{
 			endFrame += time * 0.001;
@@ -176,9 +169,9 @@ void Player::Update(float time)
 			dy += time * 0.0015f;
 		}
 		x += dx * time;
-		checkCollisionWithMap(dx, 0);
+		checkCollisionWithMap(dx, 0, world);
 		y += dy * time;
-		checkCollisionWithMap(0, dy);
+		checkCollisionWithMap(0, dy, world);
 		sprite.setPosition(x, y);
 		dy += 0.0015 * time;
 		dx = 0;
@@ -195,7 +188,7 @@ bool Player::isLevelUp()
 	return levelUp;
 }
 
-void Player::checkCollisionWithMap(float Dx, float Dy)//ф ция проверки столкновений с картой
+void Player::checkCollisionWithMap(float Dx, float Dy, ObjectsOfTheWorld & world)//ф ция проверки столкновений с картой
 {
 	for (int i = 0; i < obj.size(); i++)//проходимся по объектам
 		if (GetRect().intersects(obj[i].rect))//проверяем пересечение игрока с объектом
@@ -221,7 +214,8 @@ void Player::checkCollisionWithMap(float Dx, float Dy)//ф ция проверки столкнове
 			else if (obj[i].name == "bonus")
 			{
 				obj.erase(obj.begin() + i);
-				score += BONUS_SCORE;
+				world.score += BONUS_SCORE;
+				//health += BONUS_SCORE;
 			}
 			else if ((obj[i].name == "enemy") || (obj[i].name == "solid1") || (obj[i].name == "star"))
 			{

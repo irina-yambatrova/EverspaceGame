@@ -44,14 +44,15 @@ void InitTextures(Textures & structure)
 	structure.font.loadFromFile("CyrilicOld.ttf");
 }
 
-void PrintScorOnTheTable(RenderWindow & window, Textures & textures, int score, float x, float y)
+
+void PrintScorOnTheTable(RenderWindow & window, Textures & textures, string const& name, int score, float x, float y)
 {
 	Text text("", textures.font, 50);
 	text.setColor(Color::White);
 	//text.setStyle(sf::Text::Bold | sf::Text::Underlined);
 	std::ostringstream playerScoreString;    // объявили переменную
 	playerScoreString << score;	//занесли в нее число очков, то есть формируем строку
-	text.setString(playerScoreString.str());//задаем строку тексту и вызываем сформированную выше ст
+	text.setString(name  + playerScoreString.str());//задаем строку тексту и вызываем сформированную выше ст
 
 	text.setPosition(x, y);//задаем позицию текста, центр камеры
 	window.draw(text);//рисую этот текст
@@ -65,14 +66,14 @@ void InitEnemiesList(Level & lvl, ObjectsOfTheWorld & obj, Textures & texture, s
 	}
 }
 
-void EntitiesIntersection(ObjectsOfTheWorld &game, vector<Enemy> &enemies, vector<CWeapon> &weapons, Player & player)
+void EntitiesIntersection(ObjectsOfTheWorld &game, vector<Enemy> &enemies, vector<CWeapon> &weapons, Player & player, int score)
 {
 	for (auto enemy = enemies.begin(); enemy != enemies.end(); enemy++)
 	{
 		if (enemy->GetRect().intersects(player.GetRect()) && (!enemy->hurt) && (enemy->life))
 		{
 			enemy->hurt = true;
-			player.health -= 15;
+			game.health -= 15;
 		}
 		for (auto weapon = weapons.begin(); weapon != weapons.end(); weapon++)
 		{
@@ -152,8 +153,21 @@ void DrawAllObjects(RenderWindow & window, Level & lvl, Player & hero, ObjectsOf
 	DrawListObjects(window, time, hero.obj, "star", textures.star, 0, 0, worldObj.starCurrentFrame);
 	UpdateAndDrawEnemiesAndWeapons(window, enemies, weapons, time);
 
-	PrintScorOnTheTable(window, textures, hero.score, hero.getplayercoordinateX(), hero.getplayercoordinateY() - 100);
+	PrintScorOnTheTable(window, textures, "Bonus: ", worldObj.score, getCenterViewX(hero.getplayercoordinateX()) - 450, getCenterViewY(hero.getplayercoordinateY()) - 300);
+	PrintScorOnTheTable(window, textures, "Life: ", worldObj.health, getCenterViewX(hero.getplayercoordinateX()) - 450, getCenterViewY(hero.getplayercoordinateY()) - 255);
+	
 	window.draw(hero.sprite);
+
+	if (worldObj.health <= 0)
+	{
+		Texture endGame;
+		endGame.loadFromFile("images/GameOver.png");
+		Sprite Game_Over(endGame);
+		Game_Over.setPosition(getCenterViewX(hero.getplayercoordinateX()) - 200, getCenterViewY(hero.getplayercoordinateY()) - 180);
+		//window.clear();
+		window.draw(Game_Over);
+
+	}
 	
 	window.display();
 }
@@ -214,7 +228,7 @@ bool StartGame(RenderWindow & window, Textures & textures, ObjectsOfTheWorld & w
 				player.readyToShoot = true;
 			}
 		}
-		player.Player::Update(time);
+		player.Player::Update(time, worldObj);
 
 		if (player.isLevelUp())
 		{
@@ -223,7 +237,7 @@ bool StartGame(RenderWindow & window, Textures & textures, ObjectsOfTheWorld & w
 		}
 		SetCoordinateForView(player.getplayercoordinateX(), player.getplayercoordinateY());
 		window.setView(view);
-		EntitiesIntersection(worldObj, enemies, weapons, player);
+		EntitiesIntersection(worldObj, enemies, weapons, player, worldObj.score);
 		DrawAllObjects(window, lvl, player, worldObj, textures, time, enemies, weapons);
 	}
 }

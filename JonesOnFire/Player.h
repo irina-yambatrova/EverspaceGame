@@ -9,17 +9,15 @@ public:
 	Player(sf::Texture & texture, Level & lvl);
 
 	float dx, dy, speed;
-	int score;
 	bool onGround;
 	bool isShoot;
 	bool readyToShoot;
 	float currentFrame;
-	int health;
 	bool gameOver = false;
 	void Control();
 
-	bool EndGame();
-	void Update(float time);
+	//bool EndGame();
+	void Update(float time, ObjectsOfTheWorld & world);
 	float getplayercoordinateX() { return x; }
 	float getplayercoordinateY() { return y; }
 	sf::Sprite sprite;
@@ -41,6 +39,6 @@ private:
 	void ShootAnimation();
 	
 	void setTextureRectByState(float time);
-	void checkCollisionWithMap(float Dx, float Dy);
+	void checkCollisionWithMap(float Dx, float Dy, ObjectsOfTheWorld & world);
 	void JumpAnimation(float time);
 };

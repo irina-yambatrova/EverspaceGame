@@ -15,3 +15,24 @@ void SetCoordinateForView(float x, float y) //функция для считывания координат и
 	if (y < 150) tempY = 300;
 	view.setCenter(tempX, tempY);
 }
+
+float getCenterViewX(float x)
+{
+	float tempX = x;
+
+	if (x < WINDOWS_WIDTH / 2.f) tempX = WINDOWS_WIDTH / 2.f;//убираем из вида левую сторону
+
+	return tempX;
+}
+
+float getCenterViewY(float y)
+{
+	float tempY = y;//считываем коорд игрока и проверяем их, чтобы убрать края
+
+	if (y > 450) tempY = 450;
+	if (y < 450) tempY = 450;
+	if (y < 150) tempY = 300;
+	//view.setCenter(tempX, tempY);
+
+	return tempY;
+}
