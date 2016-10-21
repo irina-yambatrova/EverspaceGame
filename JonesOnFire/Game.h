@@ -45,11 +45,18 @@ void InitTextures(Textures & structure)
 }
 
 
-void PrintScorOnTheTable(RenderWindow & window, Textures & textures, string const& name, int score, float x, float y)
+void PrintScorOnTheTable(RenderWindow & window, Textures & textures,  string const& name, int score, float x, float y)
 {
 	Text text("", textures.font, 50);
-	text.setColor(Color::White);
-	//text.setStyle(sf::Text::Bold | sf::Text::Underlined);
+	if (name == "Bonus Life: " && score <= 80 || name == "Life: " && score <= 20)
+	{
+		text.setColor(Color::Red);
+	}
+	else if (name == "Bonus Life: " && score > 20 || name == "Life: " && score > 20)
+	{
+		text.setColor(Color::Green);
+	}
+	
 	std::ostringstream playerScoreString;    // объявили переменную
 	playerScoreString << score;	//занесли в нее число очков, то есть формируем строку
 	text.setString(name  + playerScoreString.str());//задаем строку тексту и вызываем сформированную выше ст
@@ -74,6 +81,14 @@ void EntitiesIntersection(ObjectsOfTheWorld &game, vector<Enemy> &enemies, vecto
 		{
 			enemy->hurt = true;
 			game.health -= 15;
+			Clock clock;
+			float time = clock.getElapsedTime().asMicroseconds();
+			
+			time = time / 800;
+			
+			player.sprite.setColor(Color::Red); //красный спрайт 0,1 секунда(появление), 0.2(красный), 0,1(исчезновение)
+			time = 0;
+			
 		}
 		for (auto weapon = weapons.begin(); weapon != weapons.end(); weapon++)
 		{
@@ -145,15 +160,16 @@ void UpdateAndDrawEnemiesAndWeapons(RenderWindow & window, std::vector<Enemy> & 
 	}
 }
 
-void DrawAllObjects(RenderWindow & window, Level & lvl, Player & hero, ObjectsOfTheWorld & worldObj, Textures & textures, float time, std::vector<Enemy> & enemies, std::vector<CWeapon> & weapons)
+void DrawAllObjects(RenderWindow & window, Level & lvl,  Player & hero, ObjectsOfTheWorld & worldObj, Textures & textures, float time, std::vector<Enemy> & enemies, std::vector<CWeapon> & weapons)
 {
 	window.clear(Color::White);
 	lvl.Draw(window);
 	DrawListObjects(window, time, hero.obj, "bonus", textures.bonus1, 0, 0, worldObj.bonusCurrentFrame);
 	DrawListObjects(window, time, hero.obj, "star", textures.star, 0, 0, worldObj.starCurrentFrame);
 	UpdateAndDrawEnemiesAndWeapons(window, enemies, weapons, time);
-
-	PrintScorOnTheTable(window, textures, "Bonus: ", worldObj.score, getCenterViewX(hero.getplayercoordinateX()) - 450, getCenterViewY(hero.getplayercoordinateY()) - 300);
+	
+	PrintScorOnTheTable(window, textures,  "Bonus Life: ",  worldObj.score, getCenterViewX(hero.getplayercoordinateX()) - 450, getCenterViewY(hero.getplayercoordinateY()) - 300);
+	
 	PrintScorOnTheTable(window, textures, "Life: ", worldObj.health, getCenterViewX(hero.getplayercoordinateX()) - 450, getCenterViewY(hero.getplayercoordinateY()) - 255);
 	
 	window.draw(hero.sprite);
@@ -210,7 +226,14 @@ bool StartGame(RenderWindow & window, Textures & textures, ObjectsOfTheWorld & w
 			}
 			if (Keyboard::isKeyPressed(Keyboard::Tab))
 			{
+				worldObj.bonusCurrentFrame = 0;
+				 worldObj.starCurrentFrame = 0;
+				 worldObj.level = 1;
+				 worldObj.newLevel = false;
+				 worldObj.score = 0;
+				 worldObj.health = 100;
 				return true;
+
 			}
 			if (Keyboard::isKeyPressed(Keyboard::Escape))
 			{
